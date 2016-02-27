@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="VGA27PLL_sim/VGA27PLL.vo" type="VERILOG" />
+ <topLevel name="VGA27PLL" />
+ <deviceFamily name="cyclonev" />
+</simPackage>
