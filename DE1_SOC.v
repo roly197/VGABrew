@@ -95,9 +95,21 @@ module DE1_SOC(
 
 wire CLOCK_27;
 wire rst;
+
 wire [7:0] RED;
 wire [7:0] GREEN;
 wire [7:0] BLUE;
+
+wire [9:0] location_x;
+wire [9:0] location_y;
+
+wire testpixel;
+
+wire [23:0] foregnd;
+wire [23:0] backgnd;
+
+wire [6:0] ascii_char;
+wire [7:0] charline;
 
 
 //=======================================================
@@ -105,9 +117,10 @@ wire [7:0] BLUE;
 //=======================================================
 
 assign rst = !KEY[0];
-assign RED = SW[9:7] << 5;
-assign GREEN = SW[6:4] << 5;
-assign BLUE = SW[3:1] << 5;
+
+assign backgnd = 'hE0E0E0;
+assign foregnd = 'h000066;
+
 
 VGA27PLL c0 (
 		.refclk   (CLOCK_50),   	//  refclk.clk
@@ -115,9 +128,40 @@ VGA27PLL c0 (
 		.outclk_0 (CLOCK_27), 		// outclk0.clk
 	);
 
+ColorScheme col0 (
+    .foregnd(foregnd),
+	 .backgnd(backgnd),
+	 .pixel(testpixel),
+	 .clk(CLOCK_27),
+    .RtoVGA(RED),
+	 .GtoVGA(GREEN),
+	 .BtoVGA(BLUE),
+	); 
+	
+
+Serializer ser0 (
+	.charline(charline),
+	.charpos_x(location_x[2:0]),
+	.clk(CLOCK_27),
+	.pixel(testpixel)
+);
+
+font_rom_8x8 fon0 (
+    .clk(CLOCK_27),
+	 .ascii_offset(ascii_char),
+	 .charpos_y(location_y[2:0]),
+    .out(charline)
+);
+
+Rom_80Chars rr0 (													//entity for testing charakter VGA output 
+    .clk(CLOCK_27),
+    .addr(location_x[9:3]),									//select charakter for x pos.
+    .out(ascii_char)												//corresponding ascii number to the x y pos.
+);
+	
 vga_driver v0	(
 		.r(RED),.g(GREEN),.b(BLUE),							//input
-		.current_x(),.current_y(),.request(),				//Output
+		.current_x(location_x),.current_y(location_y),.request(),				//Output
 		.vga_r(VGA_R),.vga_g(VGA_G),.vga_b(VGA_B),		//Output
 		.vga_hs(VGA_HS),.vga_vs(VGA_VS),						//Output
 		.vga_blank(VGA_BLANK_N),.vga_clock(VGA_CLK),		//Output

@@ -4,11 +4,11 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "VGA_B[5]",
+					"name" : "VGA_B[1]",
 					"strict" : false
 				},
 				{
-					"name" : "VGA_B[6]",
+					"name" : "VGA_B[2]",
 					"strict" : false
 				},
 				{
@@ -49,42 +49,6 @@
 				},
 				{
 					"name" : "VGA_VS",
-					"strict" : false
-				},
-				{
-					"name" : "SW[1]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[2]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[3]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[4]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[5]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[6]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[7]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[8]",
-					"strict" : false
-				},
-				{
-					"name" : "SW[9]",
 					"strict" : false
 				},
 				{
