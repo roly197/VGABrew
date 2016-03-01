@@ -116,56 +116,57 @@ wire [7:0] charline;
 //  Structural coding
 //=======================================================
 
-assign rst = !KEY[0];
+assign rst = !KEY[0];				// Reset as manual input KEY3
 
-assign backgnd = 'hE0E0E0;
-assign foregnd = 'h000066;
+assign backgnd = 'h000066;			// Preset foreground hardcoded should be configurable
+assign foregnd = 'hE0E0E0;			// Preset foreground hardcoded should be configurable
 
 
-VGA27PLL c0 (
-		.refclk   (CLOCK_50),   	//  refclk.clk
-		.rst      (rst),      		//   reset.reset
+VGA27PLL c0 (							// Create the required 27 Mhz for 640x480 VGA
+		.refclk   (CLOCK_50),   	// refclk.clk
+		.rst      (rst),      		// reset.reset
 		.outclk_0 (CLOCK_27), 		// outclk0.clk
 	);
 
-ColorScheme col0 (
-    .foregnd(foregnd),
-	 .backgnd(backgnd),
-	 .pixel(testpixel),
-	 .clk(CLOCK_27),
-    .RtoVGA(RED),
-	 .GtoVGA(GREEN),
-	 .BtoVGA(BLUE),
+
+Rom_80Chars rr0 (						// Entity for testing charakter VGA output 
+    .clk(CLOCK_27),					// input All runs at the VGA Clock
+    .addr(location_x[9:3]),		// input Select charakter for x pos.
+    .out(ascii_char)					// output Corresponding ascii number to the x y pos.
+);
+	
+
+font_rom_8x8 fon0 (					// ASCII rom charakter starts at 8x(char)
+    .clk(CLOCK_27),					// input All runs at the VGA Clock
+	 .ascii_offset(ascii_char),	// input The ascii charakter number
+	 .charpos_y(location_y[2:0]), // input Actual row of the ascii charakter to display
+    .out(charline)					// output The specifis byte of the charakter
+);
+
+Serializer ser0 (						// Serializer needed to send ascii bytes to VGA bit-by-bit
+	.charline(charline),				// input byte from ascii y-row
+	.charpos_x(location_x[2:0]),  // input position within the byte to serialize
+	.clk(CLOCK_27),					// input All runs at the VGA Clock
+	.pixel(testpixel)					// output the actual pixel
+);
+
+ColorScheme col0 (					// Mixer to determine foreground and background colors
+    .foregnd(foregnd),				// input Takes 3x8 RGB for foreground
+	 .backgnd(backgnd),				// input Takes 3x8 RGB for background
+	 .pixel(testpixel),				// input Pixel 0=BG ; 1=fg
+	 .clk(CLOCK_27),					// input All runs at the VGA Clock (
+    .RtoVGA(RED),						// output RGB outputs to VGA controller
+	 .GtoVGA(GREEN),					// "
+	 .BtoVGA(BLUE),					// "
 	); 
 	
-
-Serializer ser0 (
-	.charline(charline),
-	.charpos_x(location_x[2:0]),
-	.clk(CLOCK_27),
-	.pixel(testpixel)
-);
-
-font_rom_8x8 fon0 (
-    .clk(CLOCK_27),
-	 .ascii_offset(ascii_char),
-	 .charpos_y(location_y[2:0]),
-    .out(charline)
-);
-
-Rom_80Chars rr0 (													//entity for testing charakter VGA output 
-    .clk(CLOCK_27),
-    .addr(location_x[9:3]),									//select charakter for x pos.
-    .out(ascii_char)												//corresponding ascii number to the x y pos.
-);
-	
 vga_driver v0	(
-		.r(RED),.g(GREEN),.b(BLUE),							//input
-		.current_x(location_x),.current_y(location_y),.request(),				//Output
-		.vga_r(VGA_R),.vga_g(VGA_G),.vga_b(VGA_B),		//Output
-		.vga_hs(VGA_HS),.vga_vs(VGA_VS),						//Output
-		.vga_blank(VGA_BLANK_N),.vga_clock(VGA_CLK),		//Output
-		.clk27(CLOCK_27),.rst27(rst)							//input
+		.r(RED),.g(GREEN),.b(BLUE),							//input 8 bit value for RGB
+		.current_x(location_x),.current_y(location_y),.request(),				//output x-y location of pixel and the pixel request
+		.vga_r(VGA_R),.vga_g(VGA_G),.vga_b(VGA_B),		//output Value to VGA DAC pins
+		.vga_hs(VGA_HS),.vga_vs(VGA_VS),						//output Control to VGA DAC pins
+		.vga_blank(VGA_BLANK_N),.vga_clock(VGA_CLK),		//output Controls/Clock to VGA DAC pins
+		.clk27(CLOCK_27),.rst27(rst)							//input VGA clock plus reset signals
 		);
 	
 endmodule

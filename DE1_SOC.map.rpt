@@ -1,5 +1,5 @@
 Analysis & Synthesis report for DE1_SOC
-Sun Feb 28 21:21:29 2016
+Mon Feb 29 21:40:44 2016
 Quartus Prime Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
 
 
@@ -51,7 +51,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sun Feb 28 21:21:29 2016       ;
+; Analysis & Synthesis Status     ; Successful - Mon Feb 29 21:40:44 2016       ;
 ; Quartus Prime Version           ; 15.1.0 Build 185 10/21/2015 SJ Lite Edition ;
 ; Revision Name                   ; DE1_SOC                                     ;
 ; Top-level Entity Name           ; DE1_SOC                                     ;
@@ -192,14 +192,14 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+--------------------------------------------------------------------------------+
 ; Resource                                    ; Usage                                                                          ;
 +---------------------------------------------+--------------------------------------------------------------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 134                                                                            ;
+; Estimate of Logic utilization (ALMs needed) ; 132                                                                            ;
 ;                                             ;                                                                                ;
-; Combinational ALUT usage for logic          ; 173                                                                            ;
+; Combinational ALUT usage for logic          ; 168                                                                            ;
 ;     -- 7 input functions                    ; 4                                                                              ;
 ;     -- 6 input functions                    ; 88                                                                             ;
-;     -- 5 input functions                    ; 11                                                                             ;
-;     -- 4 input functions                    ; 9                                                                              ;
-;     -- <=3 input functions                  ; 61                                                                             ;
+;     -- 5 input functions                    ; 10                                                                             ;
+;     -- 4 input functions                    ; 10                                                                             ;
+;     -- <=3 input functions                  ; 56                                                                             ;
 ;                                             ;                                                                                ;
 ; Dedicated logic registers                   ; 84                                                                             ;
 ;                                             ;                                                                                ;
@@ -212,8 +212,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;                                             ;                                                                                ;
 ; Maximum fan-out node                        ; VGA27PLL:c0|VGA27PLL_0002:vga27pll_inst|altera_pll:altera_pll_i|outclk_wire[0] ;
 ; Maximum fan-out                             ; 86                                                                             ;
-; Total fan-out                               ; 1202                                                                           ;
-; Average fan-out                             ; 1.94                                                                           ;
+; Total fan-out                               ; 1196                                                                           ;
+; Average fan-out                             ; 1.95                                                                           ;
 +---------------------------------------------+--------------------------------------------------------------------------------+
 
 
@@ -222,8 +222,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node          ; LC Combinationals ; LC Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                      ; Library Name ;
 +-------------------------------------+-------------------+--------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------+--------------+
-; |DE1_SOC                            ; 173 (0)           ; 84 (0)       ; 0                 ; 0          ; 168  ; 0            ; |DE1_SOC                                                                 ; work         ;
-;    |ColorScheme:col0|               ; 7 (7)             ; 9 (9)        ; 0                 ; 0          ; 0    ; 0            ; |DE1_SOC|ColorScheme:col0                                                ; work         ;
+; |DE1_SOC                            ; 168 (0)           ; 84 (0)       ; 0                 ; 0          ; 168  ; 0            ; |DE1_SOC                                                                 ; work         ;
+;    |ColorScheme:col0|               ; 2 (2)             ; 9 (9)        ; 0                 ; 0          ; 0    ; 0            ; |DE1_SOC|ColorScheme:col0                                                ; work         ;
 ;    |Rom_80Chars:rr0|                ; 21 (21)           ; 14 (14)      ; 0                 ; 0          ; 0    ; 0            ; |DE1_SOC|Rom_80Chars:rr0                                                 ; work         ;
 ;    |Serializer:ser0|                ; 8 (8)             ; 9 (9)        ; 0                 ; 0          ; 0    ; 0            ; |DE1_SOC|Serializer:ser0                                                 ; work         ;
 ;    |VGA27PLL:c0|                    ; 0 (0)             ; 0 (0)        ; 0                 ; 0          ; 0    ; 0            ; |DE1_SOC|VGA27PLL:c0                                                     ; VGA27PLL     ;
@@ -249,13 +249,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------+----------------------------------------+
 ; Register name                          ; Reason for Removal                     ;
 +----------------------------------------+----------------------------------------+
-; font_rom_8x8:fon0|out[5..7]            ; Stuck at GND due to stuck port data_in ;
-; Serializer:ser0|mask[5..7]             ; Lost fanout                            ;
 ; ColorScheme:col0|BtoVGA[3,4]           ; Stuck at GND due to stuck port data_in ;
 ; ColorScheme:col0|BtoVGA[5,6]           ; Stuck at VCC due to stuck port data_in ;
 ; ColorScheme:col0|GtoVGA[0..4]          ; Stuck at GND due to stuck port data_in ;
 ; ColorScheme:col0|RtoVGA[0..4]          ; Stuck at GND due to stuck port data_in ;
+; font_rom_8x8:fon0|out[5..7]            ; Stuck at GND due to stuck port data_in ;
 ; ColorScheme:col0|BtoVGA[0]             ; Stuck at GND due to stuck port data_in ;
+; Serializer:ser0|mask[5..7]             ; Lost fanout                            ;
 ; vga_driver:v0|current_y[3..9]          ; Lost fanout                            ;
 ; Total Number of Removed Registers = 28 ;                                        ;
 +----------------------------------------+----------------------------------------+
@@ -293,8 +293,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output          ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------+
-; 3:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |DE1_SOC|vga_driver:v0|h_cntr[7]    ;
-; 4:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |DE1_SOC|vga_driver:v0|current_y[6] ;
+; 3:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |DE1_SOC|vga_driver:v0|current_x[6] ;
+; 4:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |DE1_SOC|vga_driver:v0|current_y[5] ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------+
 
 
@@ -587,17 +587,17 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------+-------+----------+--------------+
 ; Port            ; Type  ; Severity ; Details      ;
 +-----------------+-------+----------+--------------+
-; foregnd[6..5]   ; Input ; Info     ; Stuck at VCC ;
-; foregnd[2..1]   ; Input ; Info     ; Stuck at VCC ;
-; foregnd[23..7]  ; Input ; Info     ; Stuck at GND ;
-; foregnd[4..3]   ; Input ; Info     ; Stuck at GND ;
-; foregnd[0]      ; Input ; Info     ; Stuck at GND ;
-; backgnd[23..21] ; Input ; Info     ; Stuck at VCC ;
-; backgnd[15..13] ; Input ; Info     ; Stuck at VCC ;
-; backgnd[7..5]   ; Input ; Info     ; Stuck at VCC ;
-; backgnd[20..16] ; Input ; Info     ; Stuck at GND ;
-; backgnd[12..8]  ; Input ; Info     ; Stuck at GND ;
-; backgnd[4..0]   ; Input ; Info     ; Stuck at GND ;
+; foregnd[23..21] ; Input ; Info     ; Stuck at VCC ;
+; foregnd[15..13] ; Input ; Info     ; Stuck at VCC ;
+; foregnd[7..5]   ; Input ; Info     ; Stuck at VCC ;
+; foregnd[20..16] ; Input ; Info     ; Stuck at GND ;
+; foregnd[12..8]  ; Input ; Info     ; Stuck at GND ;
+; foregnd[4..0]   ; Input ; Info     ; Stuck at GND ;
+; backgnd[6..5]   ; Input ; Info     ; Stuck at VCC ;
+; backgnd[2..1]   ; Input ; Info     ; Stuck at VCC ;
+; backgnd[23..7]  ; Input ; Info     ; Stuck at GND ;
+; backgnd[4..3]   ; Input ; Info     ; Stuck at GND ;
+; backgnd[0]      ; Input ; Info     ; Stuck at GND ;
 +-----------------+-------+----------+--------------+
 
 
@@ -612,25 +612,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     SCLR              ; 20                          ;
 ;     plain             ; 49                          ;
 ; arriav_io_obuf        ; 25                          ;
-; arriav_lcell_comb     ; 176                         ;
+; arriav_lcell_comb     ; 171                         ;
 ;     arith             ; 33                          ;
 ;         1 data inputs ; 31                          ;
 ;         2 data inputs ; 2                           ;
 ;     extend            ; 4                           ;
 ;         7 data inputs ; 4                           ;
-;     normal            ; 139                         ;
+;     normal            ; 134                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 8                           ;
+;         1 data inputs ; 3                           ;
 ;         2 data inputs ; 4                           ;
 ;         3 data inputs ; 17                          ;
-;         4 data inputs ; 9                           ;
-;         5 data inputs ; 11                          ;
+;         4 data inputs ; 10                          ;
+;         5 data inputs ; 10                          ;
 ;         6 data inputs ; 88                          ;
 ; boundary_port         ; 168                         ;
 ; generic_pll           ; 1                           ;
 ;                       ;                             ;
 ; Max LUT depth         ; 3.00                        ;
-; Average LUT depth     ; 1.93                        ;
+; Average LUT depth     ; 1.94                        ;
 +-----------------------+-----------------------------+
 
 
@@ -639,7 +639,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:02     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -649,7 +649,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 15.1.0 Build 185 10/21/2015 SJ Lite Edition
-    Info: Processing started: Sun Feb 28 21:20:55 2016
+    Info: Processing started: Mon Feb 29 21:40:20 2016
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off DE1_SOC -c DE1_SOC
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 1 design units, including 1 entities, in source file cookbook/80CharsBrownFox.v
@@ -667,7 +667,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file ColorSc
 Info (12021): Found 1 design units, including 1 entities, in source file Serializer.v
     Info (12023): Found entity 1: Serializer File: /home/quartus/Projects/Brew/VGABrew/Serializer.v Line: 1
 Warning (10275): Verilog HDL Module Instantiation warning at DE1_SOC.v(129): ignored dangling comma in List of Port Connections File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 129
-Warning (10275): Verilog HDL Module Instantiation warning at DE1_SOC.v(139): ignored dangling comma in List of Port Connections File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 139
+Warning (10275): Verilog HDL Module Instantiation warning at DE1_SOC.v(161): ignored dangling comma in List of Port Connections File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 161
 Warning (12125): Using design file DE1_SOC.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
     Info (12023): Found entity 1: DE1_SOC File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 6
 Info (12127): Elaborating entity "DE1_SOC" for the top level hierarchy
@@ -762,11 +762,11 @@ Info (12133): Instantiated megafunction "VGA27PLL:c0|VGA27PLL_0002:vga27pll_inst
     Info (12134): Parameter "duty_cycle17" = "50"
     Info (12134): Parameter "pll_type" = "General"
     Info (12134): Parameter "pll_subtype" = "General"
-Info (12128): Elaborating entity "ColorScheme" for hierarchy "ColorScheme:col0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 139
-Info (12128): Elaborating entity "Serializer" for hierarchy "Serializer:ser0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 147
-Info (12128): Elaborating entity "font_rom_8x8" for hierarchy "font_rom_8x8:fon0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 154
-Info (12128): Elaborating entity "Rom_80Chars" for hierarchy "Rom_80Chars:rr0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 160
-Info (12128): Elaborating entity "vga_driver" for hierarchy "vga_driver:v0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 169
+Info (12128): Elaborating entity "Rom_80Chars" for hierarchy "Rom_80Chars:rr0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 136
+Info (12128): Elaborating entity "font_rom_8x8" for hierarchy "font_rom_8x8:fon0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 144
+Info (12128): Elaborating entity "Serializer" for hierarchy "Serializer:ser0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 151
+Info (12128): Elaborating entity "ColorScheme" for hierarchy "ColorScheme:col0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 161
+Info (12128): Elaborating entity "vga_driver" for hierarchy "vga_driver:v0" File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 170
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "ADC_CS_N" has no driver File: /home/quartus/Projects/Brew/VGABrew/DE1_SOC.v Line: 9
@@ -935,9 +935,9 @@ Info (21057): Implemented 364 device resources after synthesis - the final resou
     Info (21061): Implemented 195 logic cells
     Info (21065): Implemented 1 PLLs
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 186 warnings
-    Info: Peak virtual memory: 1329 megabytes
-    Info: Processing ended: Sun Feb 28 21:21:29 2016
-    Info: Elapsed time: 00:00:34
-    Info: Total CPU time (on all processors): 00:00:37
+    Info: Peak virtual memory: 1327 megabytes
+    Info: Processing ended: Mon Feb 29 21:40:44 2016
+    Info: Elapsed time: 00:00:24
+    Info: Total CPU time (on all processors): 00:00:28
 
 
