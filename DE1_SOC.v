@@ -5,19 +5,19 @@
 
 module DE1_SOC(
 
-	//////////// ADC //////////
-	inout 		          		ADC_CS_N,
-	output		          		ADC_DIN,
-	input 		          		ADC_DOUT,
-	output		          		ADC_SCLK,
-
-	//////////// Audio //////////
-	input 		          		AUD_ADCDAT,
-	inout 		          		AUD_ADCLRCK,
-	inout 		          		AUD_BCLK,
-	output		          		AUD_DACDAT,
-	inout 		          		AUD_DACLRCK,
-	output		          		AUD_XCK,
+//	//////////// ADC //////////
+//	inout 		          		ADC_CS_N,
+//	output		          		ADC_DIN,
+//	input 		          		ADC_DOUT,
+//	output		          		ADC_SCLK,
+//
+//	//////////// Audio //////////
+//	input 		          		AUD_ADCDAT,
+//	inout 		          		AUD_ADCLRCK,
+//	inout 		          		AUD_BCLK,
+//	output		          		AUD_DACDAT,
+//	inout 		          		AUD_DACLRCK,
+//	output		          		AUD_XCK,
 
 	//////////// CLOCK //////////
 	input 		          		CLOCK_50,
@@ -25,34 +25,34 @@ module DE1_SOC(
 	input 		          		CLOCK3_50,
 	input 		          		CLOCK4_50,
 
-	//////////// SDRAM //////////
-	output		    [12:0]		DRAM_ADDR,
-	output		     [1:0]		DRAM_BA,
-	output		          		DRAM_CAS_N,
-	output		          		DRAM_CKE,
-	output		          		DRAM_CLK,
-	output		          		DRAM_CS_N,
-	inout 		    [15:0]		DRAM_DQ,
-	output		          		DRAM_LDQM,
-	output		          		DRAM_RAS_N,
-	output		          		DRAM_UDQM,
-	output		          		DRAM_WE_N,
+//	//////////// SDRAM //////////
+//	output		    [12:0]		DRAM_ADDR,
+//	output		     [1:0]		DRAM_BA,
+//	output		          		DRAM_CAS_N,
+//	output		          		DRAM_CKE,
+//	output		          		DRAM_CLK,
+//	output		          		DRAM_CS_N,
+//	inout 		    [15:0]		DRAM_DQ,
+//	output		          		DRAM_LDQM,
+//	output		          		DRAM_RAS_N,
+//	output		          		DRAM_UDQM,
+//	output		          		DRAM_WE_N,
+//
+//	//////////// I2C for Audio and Video-In //////////
+//	output		          		FPGA_I2C_SCLK,
+//	inout 		          		FPGA_I2C_SDAT,
 
-	//////////// I2C for Audio and Video-In //////////
-	output		          		FPGA_I2C_SCLK,
-	inout 		          		FPGA_I2C_SDAT,
-
-	//////////// SEG7 //////////
-	output		     [6:0]		HEX0,
-	output		     [6:0]		HEX1,
-	output		     [6:0]		HEX2,
-	output		     [6:0]		HEX3,
-	output		     [6:0]		HEX4,
-	output		     [6:0]		HEX5,
-
-	//////////// IR //////////
-	input 		          		IRDA_RXD,
-	output		          		IRDA_TXD,
+//	//////////// SEG7 //////////
+//	output		     [6:0]		HEX0,
+//	output		     [6:0]		HEX1,
+//	output		     [6:0]		HEX2,
+//	output		     [6:0]		HEX3,
+//	output		     [6:0]		HEX4,
+//	output		     [6:0]		HEX5,
+//
+//	//////////// IR //////////
+//	input 		          		IRDA_RXD,
+//	output		          		IRDA_TXD,
 
 	//////////// KEY //////////
 	input 		     [3:0]		KEY,
@@ -60,21 +60,21 @@ module DE1_SOC(
 	//////////// LED //////////
 	output		     [9:0]		LEDR,
 
-	//////////// PS2 //////////
-	inout 		          		PS2_CLK,
-	inout 		          		PS2_CLK2,
-	inout 		          		PS2_DAT,
-	inout 		          		PS2_DAT2,
-
-	//////////// SW //////////
-	input 		     [9:0]		SW,
-
-	//////////// Video-In //////////
-	input 		          		TD_CLK27,
-	input 		     [7:0]		TD_DATA,
-	input 		          		TD_HS,
-	output		          		TD_RESET_N,
-	input 		          		TD_VS,
+//	//////////// PS2 //////////
+//	inout 		          		PS2_CLK,
+//	inout 		          		PS2_CLK2,
+//	inout 		          		PS2_DAT,
+//	inout 		          		PS2_DAT2,
+//
+//	//////////// SW //////////
+//	input 		     [9:0]		SW,
+//
+//	//////////// Video-In //////////
+//	input 		          		TD_CLK27,
+//	input 		     [7:0]		TD_DATA,
+//	input 		          		TD_HS,
+//	output		          		TD_RESET_N,
+//	input 		          		TD_VS,
 
 	//////////// VGA //////////
 	output		     [7:0]		VGA_B,
@@ -111,6 +111,10 @@ wire [23:0] backgnd;
 wire [6:0] ascii_char;
 wire [7:0] charline;
 
+//wire [7:0] tempchar;
+
+wire [14:0] ascii_addr;
+
 
 //=======================================================
 //  Structural coding
@@ -121,6 +125,11 @@ assign rst = !KEY[0];				// Reset as manual input KEY3
 assign backgnd = 'h000066;			// Preset foreground hardcoded should be configurable
 assign foregnd = 'hE0E0E0;			// Preset foreground hardcoded should be configurable
 
+assign ascii_addr= (location_y[9:3] << 7) | location_x[9:3];
+
+//assign ascii_char= tempchar [6:0];
+
+assign LEDR=ascii_addr[14:5];
 
 VGA27PLL c0 (							// Create the required 27 Mhz for 640x480 VGA
 		.refclk   (CLOCK_50),   	// refclk.clk
@@ -128,13 +137,20 @@ VGA27PLL c0 (							// Create the required 27 Mhz for 640x480 VGA
 		.outclk_0 (CLOCK_27), 		// outclk0.clk
 	);
 
-
-Rom_80Chars rr0 (						// Entity for testing charakter VGA output 
-    .clk(CLOCK_27),					// input All runs at the VGA Clock
-    .addr(location_x[9:3]),		// input Select charakter for x pos.
-    .out(ascii_char)					// output Corresponding ascii number to the x y pos.
-);
+//Rom_80Chars rr0 (						// Entity for testing charakter VGA output 
+//    .clk(CLOCK_27),					// input All runs at the VGA Clock
+//    .addr(location_x[9:3]),		   // input Select charakter for x pos.
+//    .out(ascii_char)					// output Corresponding ascii number to the x y pos.
+//);
 	
+AsciiMatrix am1 (
+	.address(ascii_addr),
+	.data(),
+	.inclock(CLOCK_27),
+	.outclock(CLOCK_27),
+	.wren(1'b0),
+	.q(ascii_char),
+	);
 
 font_rom_8x8 fon0 (					// ASCII rom charakter starts at 8x(char)
     .clk(CLOCK_27),					// input All runs at the VGA Clock

@@ -49,9 +49,13 @@ parameter	H_BLANK	=	H_FRONT+H_SYNC+H_BACK;
 parameter	H_TOTAL	=	H_FRONT+H_SYNC+H_BACK+H_ACT;
 
 //	Vertical Timing
-parameter	V_FRONT	=	11;
+//parameter	V_FRONT	=	11;
+//parameter	V_SYNC	=	2;
+//parameter	V_BACK	=	31;
+//parameter	V_ACT	=	480;
+parameter	V_FRONT	=	10;
 parameter	V_SYNC	=	2;
-parameter	V_BACK	=	31;
+parameter	V_BACK	=	33 ;
 parameter	V_ACT	=	480;
 parameter	V_BLANK	=	V_FRONT+V_SYNC+V_BACK;
 parameter	V_TOTAL	=	V_FRONT+V_SYNC+V_BACK+V_ACT;
