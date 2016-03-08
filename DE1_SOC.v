@@ -93,14 +93,14 @@ module DE1_SOC(
 //  REG/WIRE declarations
 //=======================================================
 
-wire CLOCK_27;
+wire CLOCK108;
 wire rst;
 
 wire [7:0] RED;
 wire [7:0] GREEN;
 wire [7:0] BLUE;
 
-wire [9:0] location_x;
+wire [10:0] location_x;
 wire [9:0] location_y;
 
 wire testpixel;
@@ -110,8 +110,6 @@ wire [23:0] backgnd;
 
 wire [6:0] ascii_char;
 wire [7:0] charline;
-
-//wire [7:0] tempchar;
 
 wire [14:0] ascii_addr;
 
@@ -125,20 +123,20 @@ assign rst = !KEY[0];				// Reset as manual input KEY3
 assign backgnd = 'h000066;			// Preset foreground hardcoded should be configurable
 assign foregnd = 'hE0E0E0;			// Preset foreground hardcoded should be configurable
 
-assign ascii_addr= (location_y[9:3] << 7) | location_x[9:3];
+assign ascii_addr= (location_y[9:3] << 8) | location_x[10:3];
 
 //assign ascii_char= tempchar [6:0];
 
 assign LEDR=ascii_addr[14:5];
 
-VGA27PLL c0 (							// Create the required 27 Mhz for 640x480 VGA
+VGA108PLL c0 (
 		.refclk   (CLOCK_50),   	// refclk.clk
 		.rst      (rst),      		// reset.reset
-		.outclk_0 (CLOCK_27), 		// outclk0.clk
+		.outclk_0 (CLOCK108), 		// outclk0.clk
 	);
 
 //Rom_80Chars rr0 (						// Entity for testing charakter VGA output 
-//    .clk(CLOCK_27),					// input All runs at the VGA Clock
+//    .clk(CLOCK108),					// input All runs at the VGA Clock
 //    .addr(location_x[9:3]),		   // input Select charakter for x pos.
 //    .out(ascii_char)					// output Corresponding ascii number to the x y pos.
 //);
@@ -146,14 +144,14 @@ VGA27PLL c0 (							// Create the required 27 Mhz for 640x480 VGA
 AsciiMatrix am1 (
 	.address(ascii_addr),
 	.data(),
-	.inclock(CLOCK_27),
-	.outclock(CLOCK_27),
+	.inclock(CLOCK108),
+	.outclock(CLOCK108),
 	.wren(1'b0),
 	.q(ascii_char),
 	);
 
 font_rom_8x8 fon0 (					// ASCII rom charakter starts at 8x(char)
-    .clk(CLOCK_27),					// input All runs at the VGA Clock
+    .clk(CLOCK108),					// input All runs at the VGA Clock
 	 .ascii_offset(ascii_char),	// input The ascii charakter number
 	 .charpos_y(location_y[2:0]), // input Actual row of the ascii charakter to display
     .out(charline)					// output The specifis byte of the charakter
@@ -162,7 +160,7 @@ font_rom_8x8 fon0 (					// ASCII rom charakter starts at 8x(char)
 Serializer ser0 (						// Serializer needed to send ascii bytes to VGA bit-by-bit
 	.charline(charline),				// input byte from ascii y-row
 	.charpos_x(location_x[2:0]),  // input position within the byte to serialize
-	.clk(CLOCK_27),					// input All runs at the VGA Clock
+	.clk(CLOCK108),					// input All runs at the VGA Clock
 	.pixel(testpixel)					// output the actual pixel
 );
 
@@ -170,7 +168,7 @@ ColorScheme col0 (					// Mixer to determine foreground and background colors
     .foregnd(foregnd),				// input Takes 3x8 RGB for foreground
 	 .backgnd(backgnd),				// input Takes 3x8 RGB for background
 	 .pixel(testpixel),				// input Pixel 0=BG ; 1=fg
-	 .clk(CLOCK_27),					// input All runs at the VGA Clock (
+	 .clk(CLOCK108),					// input All runs at the VGA Clock (
     .RtoVGA(RED),						// output RGB outputs to VGA controller
 	 .GtoVGA(GREEN),					// "
 	 .BtoVGA(BLUE),					// "
@@ -182,7 +180,7 @@ vga_driver v0	(
 		.vga_r(VGA_R),.vga_g(VGA_G),.vga_b(VGA_B),		//output Value to VGA DAC pins
 		.vga_hs(VGA_HS),.vga_vs(VGA_VS),						//output Control to VGA DAC pins
 		.vga_blank(VGA_BLANK_N),.vga_clock(VGA_CLK),		//output Controls/Clock to VGA DAC pins
-		.clk27(CLOCK_27),.rst27(rst)							//input VGA clock plus reset signals
+		.clk27(CLOCK108),.rst27(rst)							//input VGA clock plus reset signals
 		);
 	
 endmodule

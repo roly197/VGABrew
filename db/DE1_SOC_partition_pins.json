@@ -40,6 +40,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "LEDR[9]",
+					"strict" : false
+				},
+				{
 					"name" : "VGA_B[1]",
 					"strict" : false
 				},

@@ -1,26 +1,4 @@
-// Copyright 2007 Altera Corporation. All rights reserved.  
-// Altera products are protected under numerous U.S. and foreign patents, 
-// maskwork rights, copyrights and other intellectual property laws.  
-//
-// This reference design file, and your use thereof, is subject to and governed
-// by the terms and conditions of the applicable Altera Reference Design 
-// License Agreement (either as signed by you or found at www.altera.com).  By
-// using this reference design file, you indicate your acceptance of such terms
-// and conditions between you and Altera Corporation.  In the event that you do
-// not agree with such terms and conditions, you may not use the reference 
-// design file and please promptly destroy any copies you have made.
-//
-// This reference design file is being provided on an "as-is" basis and as an 
-// accommodation and therefore all warranties, representations or guarantees of 
-// any kind (whether express, implied or statutory) including, without 
-// limitation, warranties of merchantability, non-infringement, or fitness for
-// a particular purpose, are specifically disclaimed.  By making this reference
-// design file available, Altera expressly does not recommend, suggest or 
-// require that this reference design file be used in combination with any 
-// other product not provided by Altera.
-/////////////////////////////////////////////////////////////////////////////
 
-// baeckler - 02-15-2007
 
 module	vga_driver	(
 		r,g,b,
@@ -29,7 +7,7 @@ module	vga_driver	(
 		clk27,rst27);
 
 input [9:0]	r,g,b;
-output [9:0] current_x;
+output [10:0] current_x;
 output [9:0] current_y;
 output request;
 
@@ -39,30 +17,45 @@ output vga_hs, vga_vs, vga_blank, vga_clock;
 input clk27, rst27;	
 
 ////////////////////////////////////////////////////////////
-
+// VGA 12801024 requires 108MHz VGA Clock
 //	Horizontal	Timing
-parameter	H_FRONT	=	16;
-parameter	H_SYNC	=	96;
-parameter	H_BACK	=	48;
-parameter	H_ACT	=	640;
+parameter	H_FRONT	=	48;
+parameter	H_SYNC	=	112;
+parameter	H_BACK	=	248;
+parameter	H_ACT	=	1280;
 parameter	H_BLANK	=	H_FRONT+H_SYNC+H_BACK;
 parameter	H_TOTAL	=	H_FRONT+H_SYNC+H_BACK+H_ACT;
 
 //	Vertical Timing
-//parameter	V_FRONT	=	11;
-//parameter	V_SYNC	=	2;
-//parameter	V_BACK	=	31;
-//parameter	V_ACT	=	480;
-parameter	V_FRONT	=	10;
-parameter	V_SYNC	=	2;
-parameter	V_BACK	=	33 ;
-parameter	V_ACT	=	480;
+parameter	V_FRONT	=	1;
+parameter	V_SYNC	=	3;
+parameter	V_BACK	=	38;
+parameter	V_ACT	=	1024;
 parameter	V_BLANK	=	V_FRONT+V_SYNC+V_BACK;
 parameter	V_TOTAL	=	V_FRONT+V_SYNC+V_BACK+V_ACT;
 
 ////////////////////////////////////////////////////////////
+//// VGA 640x480 requires 27MHz VGA Clock
+////	Horizontal	Timing
+//parameter	H_FRONT	=	16;
+//parameter	H_SYNC	=	96;
+//parameter	H_BACK	=	48;
+//parameter	H_ACT	=	640;
+//parameter	H_BLANK	=	H_FRONT+H_SYNC+H_BACK;
+//parameter	H_TOTAL	=	H_FRONT+H_SYNC+H_BACK+H_ACT;
+//
+////	Vertical Timing
+//parameter	V_FRONT	=	10;
+//parameter	V_SYNC	=	2;
+//parameter	V_BACK	=	33 ;
+//parameter	V_ACT	=	480;
+//parameter	V_BLANK	=	V_FRONT+V_SYNC+V_BACK;
+//parameter	V_TOTAL	=	V_FRONT+V_SYNC+V_BACK+V_ACT;
 
-reg [9:0] h_cntr, v_cntr, current_x, current_y;
+////////////////////////////////////////////////////////////
+
+reg [9:0] v_cntr, current_y;
+reg [10:0] h_cntr, current_x;
 reg h_active, v_active, vga_hs, vga_vs;
 
 assign	vga_blank = h_active & v_active;

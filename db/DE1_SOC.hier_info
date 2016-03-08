@@ -7,61 +7,61 @@ KEY[0] => rst.IN2
 KEY[1] => ~NO_FANOUT~
 KEY[2] => ~NO_FANOUT~
 KEY[3] => ~NO_FANOUT~
-LEDR[0] <= ascii_addr[5].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[1] <= ascii_addr[6].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[2] <= ascii_addr[7].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[3] <= ascii_addr[8].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[4] <= ascii_addr[9].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[5] <= ascii_addr[10].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[6] <= ascii_addr[11].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[7] <= ascii_addr[12].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[8] <= ascii_addr[13].DB_MAX_OUTPUT_PORT_TYPE
-LEDR[9] <= ascii_addr[14].DB_MAX_OUTPUT_PORT_TYPE
-VGA_B[0] <= vga_driver:v0.vga_b
-VGA_B[1] <= vga_driver:v0.vga_b
-VGA_B[2] <= vga_driver:v0.vga_b
-VGA_B[3] <= vga_driver:v0.vga_b
-VGA_B[4] <= vga_driver:v0.vga_b
-VGA_B[5] <= vga_driver:v0.vga_b
-VGA_B[6] <= vga_driver:v0.vga_b
-VGA_B[7] <= vga_driver:v0.vga_b
-VGA_BLANK_N <= vga_driver:v0.vga_blank
-VGA_CLK <= vga_driver:v0.vga_clock
-VGA_G[0] <= vga_driver:v0.vga_g
-VGA_G[1] <= vga_driver:v0.vga_g
-VGA_G[2] <= vga_driver:v0.vga_g
-VGA_G[3] <= vga_driver:v0.vga_g
-VGA_G[4] <= vga_driver:v0.vga_g
-VGA_G[5] <= vga_driver:v0.vga_g
-VGA_G[6] <= vga_driver:v0.vga_g
-VGA_G[7] <= vga_driver:v0.vga_g
-VGA_HS <= vga_driver:v0.vga_hs
-VGA_R[0] <= vga_driver:v0.vga_r
-VGA_R[1] <= vga_driver:v0.vga_r
-VGA_R[2] <= vga_driver:v0.vga_r
-VGA_R[3] <= vga_driver:v0.vga_r
-VGA_R[4] <= vga_driver:v0.vga_r
-VGA_R[5] <= vga_driver:v0.vga_r
-VGA_R[6] <= vga_driver:v0.vga_r
-VGA_R[7] <= vga_driver:v0.vga_r
-VGA_SYNC_N <= <GND>
-VGA_VS <= vga_driver:v0.vga_vs
+LEDR[0] << ascii_addr[5].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[1] << ascii_addr[6].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[2] << ascii_addr[7].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[3] << ascii_addr[8].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[4] << ascii_addr[9].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[5] << ascii_addr[10].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[6] << ascii_addr[11].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[7] << ascii_addr[12].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[8] << ascii_addr[13].DB_MAX_OUTPUT_PORT_TYPE
+LEDR[9] << ascii_addr[14].DB_MAX_OUTPUT_PORT_TYPE
+VGA_B[0] << vga_driver:v0.vga_b
+VGA_B[1] << vga_driver:v0.vga_b
+VGA_B[2] << vga_driver:v0.vga_b
+VGA_B[3] << vga_driver:v0.vga_b
+VGA_B[4] << vga_driver:v0.vga_b
+VGA_B[5] << vga_driver:v0.vga_b
+VGA_B[6] << vga_driver:v0.vga_b
+VGA_B[7] << vga_driver:v0.vga_b
+VGA_BLANK_N << vga_driver:v0.vga_blank
+VGA_CLK << vga_driver:v0.vga_clock
+VGA_G[0] << vga_driver:v0.vga_g
+VGA_G[1] << vga_driver:v0.vga_g
+VGA_G[2] << vga_driver:v0.vga_g
+VGA_G[3] << vga_driver:v0.vga_g
+VGA_G[4] << vga_driver:v0.vga_g
+VGA_G[5] << vga_driver:v0.vga_g
+VGA_G[6] << vga_driver:v0.vga_g
+VGA_G[7] << vga_driver:v0.vga_g
+VGA_HS << vga_driver:v0.vga_hs
+VGA_R[0] << vga_driver:v0.vga_r
+VGA_R[1] << vga_driver:v0.vga_r
+VGA_R[2] << vga_driver:v0.vga_r
+VGA_R[3] << vga_driver:v0.vga_r
+VGA_R[4] << vga_driver:v0.vga_r
+VGA_R[5] << vga_driver:v0.vga_r
+VGA_R[6] << vga_driver:v0.vga_r
+VGA_R[7] << vga_driver:v0.vga_r
+VGA_SYNC_N << <GND>
+VGA_VS << vga_driver:v0.vga_vs
 
 
-|DE1_SOC|VGA27PLL:c0
+|DE1_SOC|VGA108PLL:c0
 refclk => refclk.IN1
 rst => rst.IN1
-outclk_0 <= VGA27PLL_0002:vga27pll_inst.outclk_0
+outclk_0 <= VGA108PLL_0002:vga108pll_inst.outclk_0
 
 
-|DE1_SOC|VGA27PLL:c0|VGA27PLL_0002:vga27pll_inst
+|DE1_SOC|VGA108PLL:c0|VGA108PLL_0002:vga108pll_inst
 refclk => refclk.IN1
 rst => rst.IN1
 outclk_0 <= altera_pll:altera_pll_i.outclk
 locked <= altera_pll:altera_pll_i.locked
 
 
-|DE1_SOC|VGA27PLL:c0|VGA27PLL_0002:vga27pll_inst|altera_pll:altera_pll_i
+|DE1_SOC|VGA108PLL:c0|VGA108PLL_0002:vga108pll_inst|altera_pll:altera_pll_i
 refclk => general[0].gpll.I_REFCLK
 refclk1 => ~NO_FANOUT~
 fbclk => ~NO_FANOUT~
@@ -1215,6 +1215,7 @@ current_x[6] <= current_x[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 current_x[7] <= current_x[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 current_x[8] <= current_x[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 current_x[9] <= current_x[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+current_x[10] <= current_x[10]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 current_y[0] <= current_y[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 current_y[1] <= current_y[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 current_y[2] <= current_y[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
@@ -1282,6 +1283,7 @@ clk27 => current_x[6]~reg0.CLK
 clk27 => current_x[7]~reg0.CLK
 clk27 => current_x[8]~reg0.CLK
 clk27 => current_x[9]~reg0.CLK
+clk27 => current_x[10]~reg0.CLK
 clk27 => vga_vs~reg0.CLK
 clk27 => vga_hs~reg0.CLK
 clk27 => v_cntr[0].CLK
@@ -1304,7 +1306,9 @@ clk27 => h_cntr[6].CLK
 clk27 => h_cntr[7].CLK
 clk27 => h_cntr[8].CLK
 clk27 => h_cntr[9].CLK
+clk27 => h_cntr[10].CLK
 clk27 => vga_clock.DATAIN
+rst27 => h_cntr.OUTPUTSELECT
 rst27 => h_cntr.OUTPUTSELECT
 rst27 => h_cntr.OUTPUTSELECT
 rst27 => h_cntr.OUTPUTSELECT
@@ -1327,6 +1331,7 @@ rst27 => v_cntr.OUTPUTSELECT
 rst27 => v_cntr.OUTPUTSELECT
 rst27 => vga_hs.OUTPUTSELECT
 rst27 => vga_vs.OUTPUTSELECT
+rst27 => current_x.OUTPUTSELECT
 rst27 => current_x.OUTPUTSELECT
 rst27 => current_x.OUTPUTSELECT
 rst27 => current_x.OUTPUTSELECT
